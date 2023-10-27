@@ -1,13 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 
 // Опишіть Props
+
+type Props = {
+  onContentEndVisible: () => void,
+  children: React.ReactElement
+}
+
 export function Observer({ children, onContentEndVisible }: Props) {
   // Вкажіть правильний тип для useRef зверніть увагу, в який DOM елемент ми його передаємо
-  const endContentRef = useRef(null);
+  const endContentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     // Вкажіть правильний тип для options, підказка, клас також можна вказувати як тип
-    const options = {
+    const options: IntersectionObserverInit = {
       rootMargin: '0px',
       threshold: 1.0,
       root: null,
@@ -33,8 +39,11 @@ export function Observer({ children, onContentEndVisible }: Props) {
 
   return (
     <div>
-      {children}
+      <div>{children}</div>
       <div ref={endContentRef} />
     </div>
   );
 }
+
+// Не можу зрозуміти як виправити ці помилки: https://drive.google.com/file/d/1uryHFeXgUSub4iyAqI3orw3LOKx2fewk/view?usp=sharing
+// аналогічно у інших завданнях
